@@ -29,10 +29,7 @@ runtime = boto3.client("sagemaker-runtime", verify=False)
 
 ns_parent_retriever_api = Namespace('ask_question_to_parent',description="api for asking question to parent retriever")
 
-# import os
-# os.environ['OPENAI_API_KEY'] = "sk-proj-W2TxDZ9dYXoN19qeDmkkT3BlbkFJtE7hTpaA8AXIhDwb6C9H"
 
-        
 
 
 @ns_parent_retriever_api.route('/', methods=['POST'])
