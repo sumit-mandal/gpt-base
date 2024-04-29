@@ -1,0 +1,202 @@
+{
+  "version": "22.0.0",
+  "artifacts": {
+    "lvs-marine-server-dev-codepipeline-stack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "lvs-marine-server-dev-codepipeline-stack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "lvs-marine-server-dev-codepipeline-stack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://023432627616/ap-south-1",
+      "properties": {
+        "templateFile": "lvs-marine-server-dev-codepipeline-stack.template.json",
+        "tags": {
+          "createdBy": "Clyde.Mendonca",
+          "environment": "dev",
+          "project": "lvs-marine"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::023432627616:role/cdk-hnb659fds-deploy-role-023432627616-ap-south-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::023432627616:role/cdk-hnb659fds-cfn-exec-role-023432627616-ap-south-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-023432627616-ap-south-1/208aa90db28046d3bc933c716101a184a95d4af01e341f9463837e08304f363e.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "lvs-marine-server-dev-codepipeline-stack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::023432627616:role/cdk-hnb659fds-lookup-role-023432627616-ap-south-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "lvs-marine-server-dev-codepipeline-stack.assets"
+      ],
+      "metadata": {
+        "/lvs-marine-server-dev-codepipeline-stack": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "createdBy",
+                "Value": "Clyde.Mendonca"
+              },
+              {
+                "Key": "environment",
+                "Value": "dev"
+              },
+              {
+                "Key": "project",
+                "Value": "lvs-marine"
+              }
+            ]
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-secret/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lvsmarineserverdevsecret4871DA63"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/ArtifactsBucketEncryptionKey/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lvsmarineserverdevcodepipelineArtifactsBucketEncryptionKeyFDA8F363"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/ArtifactsBucketEncryptionKeyAlias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lvsmarineserverdevcodepipelineArtifactsBucketEncryptionKeyAliasF2175629"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/ArtifactsBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lvsmarineserverdevcodepipelineArtifactsBucketC2B6D973"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/ArtifactsBucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lvsmarineserverdevcodepipelineArtifactsBucketPolicy803103AB"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lvsmarineserverdevcodepipelineRole08AE5F7D"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lvsmarineserverdevcodepipelineRoleDefaultPolicyC736E354"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lvsmarineserverdevcodepipelineE034DED6"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Source/GitHubSource/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lvsmarineserverdevcodepipelineSourceGitHubSourceCodePipelineActionRole6C1CEFD2"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Source/GitHubSource/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lvsmarineserverdevcodepipelineSourceGitHubSourceCodePipelineActionRoleDefaultPolicy63139A67"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Approve/Approve/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lvsmarineserverdevcodepipelineApproveCodePipelineActionRole7145BE7F"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Approve/Approve/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lvsmarineserverdevcodepipelineApproveCodePipelineActionRoleDefaultPolicyE644EB8B"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Build/BuildAndDeploy/CodePipelineActionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lvsmarineserverdevcodepipelineBuildBuildAndDeployCodePipelineActionRole2DAB8156"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Build/BuildAndDeploy/CodePipelineActionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lvsmarineserverdevcodepipelineBuildBuildAndDeployCodePipelineActionRoleDefaultPolicy6BBDE819"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codebuild-project/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lvsmarineserverdevcodebuildprojectRole29BEF774"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codebuild-project/Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lvsmarineserverdevcodebuildprojectRoleDefaultPolicy637E3757"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codebuild-project/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lvsmarineserverdevcodebuildproject10EAD398"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-sns-topic/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lvsmarineserverdevsnstopic60FE55E9"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-sns-subscription/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "lvsmarineserverdevsnssubscription0B90CF28"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/lvs-marine-server-dev-codepipeline-stack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "lvs-marine-server-dev-codepipeline-stack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+version: 0.2
+
+env:
+  secrets-manager:
+    DEPLOYMENT_BUCKET: "sahara-nsh-AI-uat-secret:DEPLOYMENT_BUCKET"
+    BUILD_ENV: "sahara-nsh-AI-uat-secret:BUILD_ENV"
+    DEBUG: "sahara-nsh-AI-uat-secret:DEBUG"
+    REGION: "sahara-nsh-AI-uat-secret:REGION"
+    S3_BUCKET_NAME: "sahara-nsh-AI-uat-secret:S3_BUCKET_NAME"
+    S3_SAVE_INPUT_BUCKET: "sahara-nsh-AI-uat-secret:S3_SAVE_INPUT_BUCKET"
+    SAGEMAKER_ENDPOINT: "sahara-nsh-AI-uat-secret:SAGEMAKER_ENDPOINT"
+    SERVERLESS_DEPLOYMENT_BUCKET: "sahara-nsh-AI-uat-secret:SERVERLESS_DEPLOYMENT_BUCKET"
+    S3_EMBEDDINGS_PATH: "sahara-nsh-AI-uat-secret:S3_EMBEDDINGS_PATH"
+    EMBEDDINGS_ENDPOINT: "sahara-nsh-AI-uat-secret:EMBEDDINGS_ENDPOINT"
+    VPC_SUBNET_ID_2: "sahara-nsh-AI-uat-secret:VPC_SUBNET_ID_2"
+    VPC_SUBNET_ID_1: "sahara-nsh-AI-uat-secret:VPC_SUBNET_ID_1"
+    VPC_SECURITY_GROUP: "sahara-nsh-AI-uat-secret:VPC_SECURITY_GROUP"
+    ANUBHAV_EMBEDDINGS: "sahara-nsh-AI-uat-secret:ANUBHAV_EMBEDDINGS"
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+      nodejs: 14
+    commands:
+      - echo "Installing Python dependencies"
+      - echo DEPLOYMENT_BUCKET=$DEPLOYMENT_BUCKET >> .env
+      - echo BUILD_ENV=$BUILD_ENV >> .env
+      - echo STAGE=$BUILD_ENV >> .env
+      - echo DEBUG=$DEBUG >> .env
+      - echo REGION=$REGION >> .env
+      - echo S3_BUCKET_NAME=$S3_BUCKET_NAME >> .env
+      - echo S3_SAVE_INPUT_BUCKET=$S3_SAVE_INPUT_BUCKET >> .env
+      - echo SAGEMAKER_ENDPOINT=$SAGEMAKER_ENDPOINT >> .env
+      - echo SERVERLESS_DEPLOYMENT_BUCKET=$SERVERLESS_DEPLOYMENT_BUCKET >> .env
+      - echo S3_EMBEDDINGS_PATH=$S3_EMBEDDINGS_PATH >> .env
+      - echo EMBEDDINGS_ENDPOINT=$EMBEDDINGS_ENDPOINT >> .env
+      - echo ANUBHAV_EMBEDDINGS=$ANUBHAV_EMBEDDINGS >> .env
+      - echo Installing serverless
+      - npm install -g serverless@3
+      - echo Installing serverless plugins
+      - npm install
+      - npm install --save-dev serverless-prune-plugin
+      - npm install --save-dev serverless-wsgi
+      - npm install --save-dev serverless-python-requirements
+      - npm install --save-dev serverless-dotenv-plugin
+      - echo VPC_SUBNET_ID_2=$VPC_SUBNET_ID_2 >> .env
+      - echo VPC_SUBNET_ID_1=$VPC_SUBNET_ID_1 >> .env
+      - echo VPC_SECURITY_GROUP=$VPC_SECURITY_GROUP >> .env
+
+
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - touch env_vars.json
+      - IMAGE_ENV_VARS=$(echo "${ENV_VARS}" | jq 'del(.AWS_ACCESS_KEY_ID, .AWS_SECRET_ACCESS_KEY)')
+      - echo $IMAGE_ENV_VARS > env_vars.json
+      - cp env_vars.json src/env_vars.json
+      - cat env_vars.json
+      - cat src/env_vars.json
+  build:
+    commands:
+      - SLS_DEBUG=1 serverless deploy --stage uat --verbose

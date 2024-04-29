@@ -1,0 +1,17 @@
+{
+    "DEBUG": "true",
+    "STAGE": "dev",
+    "REGION": "ap-south-1",
+    "S3_BUCKET_NAME": "genai-cv-uat",
+    "S3_SAVE_INPUT_BUCKET": "sahara-ansh-pdf-dev/",
+    "SAGEMAKER_ENDPOINT": "pdf-endpoint",
+    "SERVERLESS_DEPLOYMENT_BUCKET": "tagic-deployment-bucket",
+    "S3_EMBEDDINGS_PATH": "embeddings-dev/",
+    "EMBEDDINBGS_STAGE": "-dev",
+    "EMBEDDINGS_ENDPOINT": "base-model-endpoint",
+    "VPC_SUBNET_ID_2": "subnet-05204192dbfd8ab41",
+    "VPC_SUBNET_ID_1": "subnet-01b7be9099911b823",
+    "VPC_SECURITY_GROUP": "sg-0363f946b2dfccfd4",
+    "ANUBHAV_EMBEDDINGS": "anubhav_path/"
+}
+

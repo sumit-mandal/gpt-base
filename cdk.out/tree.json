@@ -1,0 +1,1272 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "lvs-marine-server-dev-codepipeline-stack": {
+        "id": "lvs-marine-server-dev-codepipeline-stack",
+        "path": "lvs-marine-server-dev-codepipeline-stack",
+        "children": {
+          "lvs-marine-server-dev-secret": {
+            "id": "lvs-marine-server-dev-secret",
+            "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-secret",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-secret/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::SecretsManager::Secret",
+                  "aws:cdk:cloudformation:props": {
+                    "generateSecretString": {
+                      "generateStringKey": "password",
+                      "secretStringTemplate": "{\"PYTHON_ENV\": \"dev\", \"LOG_LEVEL\": \"INFO\", \"AWS_TAG_PROJECT_NAME\": \"lvs-marine\", \"AWS_TAG_CREATED_BY\": \"Clyde.Mendonca\", \"DEPLOYMENT_BUCKET\": \"tagic-serverless-deployment-bucket\", \"LVS_MARINE_WEB_BASE_URL\": \"https://devlvsmarine.tataaig.com\", \"TWILIO_ACCOUNT_SID\": \"AC08bdc88f85077c4475107e1c5eb094dc\", \"TWILIO_API_KEY\": \"SK39bbe1f6404dbddadab60707b48ad8e5\", \"TWILIO_API_KEY_SECRET\": \"j2wHVrer8sufZbXIAxGnby7jXXMaWWpU\", \"TWILIO_AUTH_TOKEN\": \"3161173cc736dc9a7506e7c65a9b8aac\", \"DYNAMO_ROOM_TABLE_NAME\": \"lvs-marine-server-dev-rooms\", \"MEDIA_UPLOADS_BUCKET_NAME\": \"lvs-marine-server-dev-media-uploads\", \"AUTH_CLIENT_ID\": \"1cd8be8e-a790-11ed-afa1-0242ac120002\", \"AUTH_CLIENT_SECRET\": \"f1873c44-afd7-4c2b-b316-30b878ddcdeb\", \"URL_SHORTNER_ACCESS_TOKEN_BASE_URL\": \"https://foyer-tataaig.auth.ap-south-1.amazoncognito.com\", \"URL_SHORTNER_ACCESS_TOKEN_CLIENT_ID\": \"68tg078uoi0crbrvgfgh3kutng\", \"URL_SHORTNER_ACCESS_TOKEN_CLIENT_SECRET\": \"1j078n6habh56g9665ho2b86dcpl4m4v2eecq6c13opdg71n025v\", \"URL_SHORTNER_ACCESS_TOKEN_GRANT_TYPE\": \"client_credentials\", \"URL_SHORTNER_ACCESS_TOKEN_SCOPE\": \"https://foyer.tataaig.com/write\", \"TINY_URL_BASE_URL\": \"https://foyer.tataaig.com\", \"TINY_URL_API_KEY\": \"YNbBTU6RjV6z73plfBOAn1xAwlZu1Ha63nVTsZCW\", \"COMMUNICATION_MICROSERVICE_API_URL\": \"https://www.tataaig.com/lambda/prod-communication/sendMessage\", \"COMMUNICATION_MICROSERVICE_API_TOKEN\": \"16B419B622290420FEEB7136A3927C66EE032B565D43342D3531ED2C7A05EB0E\", \"SLACK_HOOK_URL\": \"https://hooks.slack.com/services/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\"}"
+                    },
+                    "name": "lvs-marine-server-dev-secret"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_secretsmanager.CfnSecret",
+                  "version": "2.59.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_secretsmanager.Secret",
+              "version": "2.59.0"
+            }
+          },
+          "lvs-marine-server-dev-codepipeline": {
+            "id": "lvs-marine-server-dev-codepipeline",
+            "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline",
+            "children": {
+              "ArtifactsBucketEncryptionKey": {
+                "id": "ArtifactsBucketEncryptionKey",
+                "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/ArtifactsBucketEncryptionKey",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/ArtifactsBucketEncryptionKey/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::KMS::Key",
+                      "aws:cdk:cloudformation:props": {
+                        "keyPolicy": {
+                          "Statement": [
+                            {
+                              "Action": "kms:*",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "AWS": "arn:aws:iam::023432627616:root"
+                              },
+                              "Resource": "*"
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_kms.CfnKey",
+                      "version": "2.59.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_kms.Key",
+                  "version": "2.59.0"
+                }
+              },
+              "ArtifactsBucketEncryptionKeyAlias": {
+                "id": "ArtifactsBucketEncryptionKeyAlias",
+                "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/ArtifactsBucketEncryptionKeyAlias",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/ArtifactsBucketEncryptionKeyAlias/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::KMS::Alias",
+                      "aws:cdk:cloudformation:props": {
+                        "aliasName": "alias/codepipeline-lvs-marine-server-dev-codepipeline-stack-lvs-marine-server-dev-codepipeline-62ca0b39",
+                        "targetKeyId": {
+                          "Fn::GetAtt": [
+                            "lvsmarineserverdevcodepipelineArtifactsBucketEncryptionKeyFDA8F363",
+                            "Arn"
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_kms.CfnAlias",
+                      "version": "2.59.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_kms.Alias",
+                  "version": "2.59.0"
+                }
+              },
+              "ArtifactsBucket": {
+                "id": "ArtifactsBucket",
+                "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/ArtifactsBucket",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/ArtifactsBucket/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                      "aws:cdk:cloudformation:props": {
+                        "bucketEncryption": {
+                          "serverSideEncryptionConfiguration": [
+                            {
+                              "serverSideEncryptionByDefault": {
+                                "sseAlgorithm": "aws:kms",
+                                "kmsMasterKeyId": {
+                                  "Fn::GetAtt": [
+                                    "lvsmarineserverdevcodepipelineArtifactsBucketEncryptionKeyFDA8F363",
+                                    "Arn"
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "publicAccessBlockConfiguration": {
+                          "blockPublicAcls": true,
+                          "blockPublicPolicy": true,
+                          "ignorePublicAcls": true,
+                          "restrictPublicBuckets": true
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+                      "version": "2.59.0"
+                    }
+                  },
+                  "Policy": {
+                    "id": "Policy",
+                    "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/ArtifactsBucket/Policy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/ArtifactsBucket/Policy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
+                          "aws:cdk:cloudformation:props": {
+                            "bucket": {
+                              "Ref": "lvsmarineserverdevcodepipelineArtifactsBucketC2B6D973"
+                            },
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "s3:*",
+                                  "Condition": {
+                                    "Bool": {
+                                      "aws:SecureTransport": "false"
+                                    }
+                                  },
+                                  "Effect": "Deny",
+                                  "Principal": {
+                                    "AWS": "*"
+                                  },
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "lvsmarineserverdevcodepipelineArtifactsBucketC2B6D973",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "lvsmarineserverdevcodepipelineArtifactsBucketC2B6D973",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3.CfnBucketPolicy",
+                          "version": "2.59.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketPolicy",
+                      "version": "2.59.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.Bucket",
+                  "version": "2.59.0"
+                }
+              },
+              "Role": {
+                "id": "Role",
+                "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Role",
+                "children": {
+                  "ImportRole": {
+                    "id": "ImportRole",
+                    "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Role/ImportRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.59.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Role/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "codepipeline.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.59.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Role/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Role/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "s3:Abort*",
+                                    "s3:DeleteObject*",
+                                    "s3:GetBucket*",
+                                    "s3:GetObject*",
+                                    "s3:List*",
+                                    "s3:PutObject",
+                                    "s3:PutObjectLegalHold",
+                                    "s3:PutObjectRetention",
+                                    "s3:PutObjectTagging",
+                                    "s3:PutObjectVersionTagging"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "lvsmarineserverdevcodepipelineArtifactsBucketC2B6D973",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "lvsmarineserverdevcodepipelineArtifactsBucketC2B6D973",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "kms:Decrypt",
+                                    "kms:DescribeKey",
+                                    "kms:Encrypt",
+                                    "kms:GenerateDataKey*",
+                                    "kms:ReEncrypt*"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::GetAtt": [
+                                      "lvsmarineserverdevcodepipelineArtifactsBucketEncryptionKeyFDA8F363",
+                                      "Arn"
+                                    ]
+                                  }
+                                },
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "lvsmarineserverdevcodepipelineApproveCodePipelineActionRole7145BE7F",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::GetAtt": [
+                                        "lvsmarineserverdevcodepipelineBuildBuildAndDeployCodePipelineActionRole2DAB8156",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::GetAtt": [
+                                        "lvsmarineserverdevcodepipelineSourceGitHubSourceCodePipelineActionRole6C1CEFD2",
+                                        "Arn"
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "lvsmarineserverdevcodepipelineRoleDefaultPolicyC736E354",
+                            "roles": [
+                              {
+                                "Ref": "lvsmarineserverdevcodepipelineRole08AE5F7D"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.59.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.59.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.59.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::CodePipeline::Pipeline",
+                  "aws:cdk:cloudformation:props": {
+                    "roleArn": {
+                      "Fn::GetAtt": [
+                        "lvsmarineserverdevcodepipelineRole08AE5F7D",
+                        "Arn"
+                      ]
+                    },
+                    "stages": [
+                      {
+                        "name": "Source",
+                        "actions": [
+                          {
+                            "name": "GitHubSource",
+                            "outputArtifacts": [
+                              {
+                                "name": "Artifact_Source_GitHubSource"
+                              }
+                            ],
+                            "actionTypeId": {
+                              "category": "Source",
+                              "version": "1",
+                              "owner": "AWS",
+                              "provider": "CodeStarSourceConnection"
+                            },
+                            "configuration": {
+                              "ConnectionArn": "arn:aws:codestar-connections:ap-south-1:023432627616:connection/a04415b5-5bcd-455c-9156-e2e24f1f5887",
+                              "FullRepositoryId": "tataaig-innovations-lab/lvs-marine-server",
+                              "BranchName": "dev"
+                            },
+                            "runOrder": 1,
+                            "roleArn": {
+                              "Fn::GetAtt": [
+                                "lvsmarineserverdevcodepipelineSourceGitHubSourceCodePipelineActionRole6C1CEFD2",
+                                "Arn"
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Approve",
+                        "actions": [
+                          {
+                            "name": "Approve",
+                            "actionTypeId": {
+                              "category": "Approval",
+                              "version": "1",
+                              "owner": "AWS",
+                              "provider": "Manual"
+                            },
+                            "configuration": {
+                              "NotificationArn": {
+                                "Ref": "lvsmarineserverdevsnstopic60FE55E9"
+                              }
+                            },
+                            "runOrder": 1,
+                            "roleArn": {
+                              "Fn::GetAtt": [
+                                "lvsmarineserverdevcodepipelineApproveCodePipelineActionRole7145BE7F",
+                                "Arn"
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Build",
+                        "actions": [
+                          {
+                            "name": "BuildAndDeploy",
+                            "inputArtifacts": [
+                              {
+                                "name": "Artifact_Source_GitHubSource"
+                              }
+                            ],
+                            "actionTypeId": {
+                              "category": "Build",
+                              "version": "1",
+                              "owner": "AWS",
+                              "provider": "CodeBuild"
+                            },
+                            "configuration": {
+                              "ProjectName": {
+                                "Ref": "lvsmarineserverdevcodebuildproject10EAD398"
+                              }
+                            },
+                            "runOrder": 2,
+                            "roleArn": {
+                              "Fn::GetAtt": [
+                                "lvsmarineserverdevcodepipelineBuildBuildAndDeployCodePipelineActionRole2DAB8156",
+                                "Arn"
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ],
+                    "artifactStore": {
+                      "type": "S3",
+                      "location": {
+                        "Ref": "lvsmarineserverdevcodepipelineArtifactsBucketC2B6D973"
+                      },
+                      "encryptionKey": {
+                        "type": "KMS",
+                        "id": {
+                          "Fn::GetAtt": [
+                            "lvsmarineserverdevcodepipelineArtifactsBucketEncryptionKeyFDA8F363",
+                            "Arn"
+                          ]
+                        }
+                      }
+                    },
+                    "name": "lvs-marine-server-dev-codepipeline"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_codepipeline.CfnPipeline",
+                  "version": "2.59.0"
+                }
+              },
+              "Source": {
+                "id": "Source",
+                "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Source",
+                "children": {
+                  "GitHubSource": {
+                    "id": "GitHubSource",
+                    "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Source/GitHubSource",
+                    "children": {
+                      "CodePipelineActionRole": {
+                        "id": "CodePipelineActionRole",
+                        "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Source/GitHubSource/CodePipelineActionRole",
+                        "children": {
+                          "ImportCodePipelineActionRole": {
+                            "id": "ImportCodePipelineActionRole",
+                            "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Source/GitHubSource/CodePipelineActionRole/ImportCodePipelineActionRole",
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.Resource",
+                              "version": "2.59.0"
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Source/GitHubSource/CodePipelineActionRole/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                              "aws:cdk:cloudformation:props": {
+                                "assumeRolePolicyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Principal": {
+                                        "AWS": "arn:aws:iam::023432627616:root"
+                                      }
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                              "version": "2.59.0"
+                            }
+                          },
+                          "DefaultPolicy": {
+                            "id": "DefaultPolicy",
+                            "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Source/GitHubSource/CodePipelineActionRole/DefaultPolicy",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Source/GitHubSource/CodePipelineActionRole/DefaultPolicy/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                                  "aws:cdk:cloudformation:props": {
+                                    "policyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": "codestar-connections:UseConnection",
+                                          "Effect": "Allow",
+                                          "Resource": "arn:aws:codestar-connections:ap-south-1:023432627616:connection/a04415b5-5bcd-455c-9156-e2e24f1f5887"
+                                        },
+                                        {
+                                          "Action": [
+                                            "s3:Abort*",
+                                            "s3:DeleteObject*",
+                                            "s3:GetBucket*",
+                                            "s3:GetObject*",
+                                            "s3:List*",
+                                            "s3:PutObject",
+                                            "s3:PutObjectLegalHold",
+                                            "s3:PutObjectRetention",
+                                            "s3:PutObjectTagging",
+                                            "s3:PutObjectVersionTagging"
+                                          ],
+                                          "Effect": "Allow",
+                                          "Resource": [
+                                            {
+                                              "Fn::GetAtt": [
+                                                "lvsmarineserverdevcodepipelineArtifactsBucketC2B6D973",
+                                                "Arn"
+                                              ]
+                                            },
+                                            {
+                                              "Fn::Join": [
+                                                "",
+                                                [
+                                                  {
+                                                    "Fn::GetAtt": [
+                                                      "lvsmarineserverdevcodepipelineArtifactsBucketC2B6D973",
+                                                      "Arn"
+                                                    ]
+                                                  },
+                                                  "/*"
+                                                ]
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "Action": [
+                                            "kms:Decrypt",
+                                            "kms:DescribeKey",
+                                            "kms:Encrypt",
+                                            "kms:GenerateDataKey*",
+                                            "kms:ReEncrypt*"
+                                          ],
+                                          "Effect": "Allow",
+                                          "Resource": {
+                                            "Fn::GetAtt": [
+                                              "lvsmarineserverdevcodepipelineArtifactsBucketEncryptionKeyFDA8F363",
+                                              "Arn"
+                                            ]
+                                          }
+                                        },
+                                        {
+                                          "Action": [
+                                            "s3:PutObjectAcl",
+                                            "s3:PutObjectVersionAcl"
+                                          ],
+                                          "Effect": "Allow",
+                                          "Resource": {
+                                            "Fn::Join": [
+                                              "",
+                                              [
+                                                {
+                                                  "Fn::GetAtt": [
+                                                    "lvsmarineserverdevcodepipelineArtifactsBucketC2B6D973",
+                                                    "Arn"
+                                                  ]
+                                                },
+                                                "/*"
+                                              ]
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    },
+                                    "policyName": "lvsmarineserverdevcodepipelineSourceGitHubSourceCodePipelineActionRoleDefaultPolicy63139A67",
+                                    "roles": [
+                                      {
+                                        "Ref": "lvsmarineserverdevcodepipelineSourceGitHubSourceCodePipelineActionRole6C1CEFD2"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                                  "version": "2.59.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.Policy",
+                              "version": "2.59.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Role",
+                          "version": "2.59.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.1.246"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.1.246"
+                }
+              },
+              "Approve": {
+                "id": "Approve",
+                "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Approve",
+                "children": {
+                  "Approve": {
+                    "id": "Approve",
+                    "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Approve/Approve",
+                    "children": {
+                      "CodePipelineActionRole": {
+                        "id": "CodePipelineActionRole",
+                        "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Approve/Approve/CodePipelineActionRole",
+                        "children": {
+                          "ImportCodePipelineActionRole": {
+                            "id": "ImportCodePipelineActionRole",
+                            "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Approve/Approve/CodePipelineActionRole/ImportCodePipelineActionRole",
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.Resource",
+                              "version": "2.59.0"
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Approve/Approve/CodePipelineActionRole/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                              "aws:cdk:cloudformation:props": {
+                                "assumeRolePolicyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Principal": {
+                                        "AWS": "arn:aws:iam::023432627616:root"
+                                      }
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                              "version": "2.59.0"
+                            }
+                          },
+                          "DefaultPolicy": {
+                            "id": "DefaultPolicy",
+                            "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Approve/Approve/CodePipelineActionRole/DefaultPolicy",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Approve/Approve/CodePipelineActionRole/DefaultPolicy/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                                  "aws:cdk:cloudformation:props": {
+                                    "policyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": "sns:Publish",
+                                          "Effect": "Allow",
+                                          "Resource": {
+                                            "Ref": "lvsmarineserverdevsnstopic60FE55E9"
+                                          }
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    },
+                                    "policyName": "lvsmarineserverdevcodepipelineApproveCodePipelineActionRoleDefaultPolicyE644EB8B",
+                                    "roles": [
+                                      {
+                                        "Ref": "lvsmarineserverdevcodepipelineApproveCodePipelineActionRole7145BE7F"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                                  "version": "2.59.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.Policy",
+                              "version": "2.59.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Role",
+                          "version": "2.59.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.1.246"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.1.246"
+                }
+              },
+              "Build": {
+                "id": "Build",
+                "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Build",
+                "children": {
+                  "BuildAndDeploy": {
+                    "id": "BuildAndDeploy",
+                    "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Build/BuildAndDeploy",
+                    "children": {
+                      "CodePipelineActionRole": {
+                        "id": "CodePipelineActionRole",
+                        "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Build/BuildAndDeploy/CodePipelineActionRole",
+                        "children": {
+                          "ImportCodePipelineActionRole": {
+                            "id": "ImportCodePipelineActionRole",
+                            "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Build/BuildAndDeploy/CodePipelineActionRole/ImportCodePipelineActionRole",
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.Resource",
+                              "version": "2.59.0"
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Build/BuildAndDeploy/CodePipelineActionRole/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                              "aws:cdk:cloudformation:props": {
+                                "assumeRolePolicyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Principal": {
+                                        "AWS": "arn:aws:iam::023432627616:root"
+                                      }
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                              "version": "2.59.0"
+                            }
+                          },
+                          "DefaultPolicy": {
+                            "id": "DefaultPolicy",
+                            "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Build/BuildAndDeploy/CodePipelineActionRole/DefaultPolicy",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codepipeline/Build/BuildAndDeploy/CodePipelineActionRole/DefaultPolicy/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                                  "aws:cdk:cloudformation:props": {
+                                    "policyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": [
+                                            "codebuild:BatchGetBuilds",
+                                            "codebuild:StartBuild",
+                                            "codebuild:StopBuild"
+                                          ],
+                                          "Effect": "Allow",
+                                          "Resource": {
+                                            "Fn::GetAtt": [
+                                              "lvsmarineserverdevcodebuildproject10EAD398",
+                                              "Arn"
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    },
+                                    "policyName": "lvsmarineserverdevcodepipelineBuildBuildAndDeployCodePipelineActionRoleDefaultPolicy6BBDE819",
+                                    "roles": [
+                                      {
+                                        "Ref": "lvsmarineserverdevcodepipelineBuildBuildAndDeployCodePipelineActionRole2DAB8156"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                                  "version": "2.59.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.Policy",
+                              "version": "2.59.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Role",
+                          "version": "2.59.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.1.246"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.1.246"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_codepipeline.Pipeline",
+              "version": "2.59.0"
+            }
+          },
+          "lvs-marine-server-dev-codebuild-project": {
+            "id": "lvs-marine-server-dev-codebuild-project",
+            "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codebuild-project",
+            "children": {
+              "Role": {
+                "id": "Role",
+                "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codebuild-project/Role",
+                "children": {
+                  "ImportRole": {
+                    "id": "ImportRole",
+                    "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codebuild-project/Role/ImportRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.59.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codebuild-project/Role/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "codebuild.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.59.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codebuild-project/Role/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codebuild-project/Role/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "logs:CreateLogGroup",
+                                    "logs:CreateLogStream",
+                                    "logs:PutLogEvents"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:aws:logs:ap-south-1:023432627616:log-group:/aws/codebuild/",
+                                          {
+                                            "Ref": "lvsmarineserverdevcodebuildproject10EAD398"
+                                          },
+                                          ":*"
+                                        ]
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          "arn:aws:logs:ap-south-1:023432627616:log-group:/aws/codebuild/",
+                                          {
+                                            "Ref": "lvsmarineserverdevcodebuildproject10EAD398"
+                                          }
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "codebuild:BatchPutCodeCoverages",
+                                    "codebuild:BatchPutTestCases",
+                                    "codebuild:CreateReport",
+                                    "codebuild:CreateReportGroup",
+                                    "codebuild:UpdateReport"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:aws:codebuild:ap-south-1:023432627616:report-group/",
+                                        {
+                                          "Ref": "lvsmarineserverdevcodebuildproject10EAD398"
+                                        },
+                                        "-*"
+                                      ]
+                                    ]
+                                  }
+                                },
+                                {
+                                  "Action": "secretsmanager:*",
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Ref": "lvsmarineserverdevsecret4871DA63"
+                                  }
+                                },
+                                {
+                                  "Action": [
+                                    "SNS:*",
+                                    "apigateway:*",
+                                    "cloudFormation:ListStacks",
+                                    "cloudformation:CreateChangeSet",
+                                    "cloudformation:CreateStack",
+                                    "cloudformation:DeleteChangeSet",
+                                    "cloudformation:DeleteStack",
+                                    "cloudformation:DescribeChangeSet",
+                                    "cloudformation:DescribeStackEvents",
+                                    "cloudformation:DescribeStacks",
+                                    "cloudformation:ExecuteChangeSet",
+                                    "cloudformation:ListStackResources",
+                                    "cloudformation:SetStackPolicy",
+                                    "cloudformation:UpdateStack",
+                                    "cloudformation:ValidateTemplate",
+                                    "cloudfront:*",
+                                    "dynamodb:*",
+                                    "ec2:DescribeSecurityGroups",
+                                    "ec2:DescribeSubnets",
+                                    "ec2:DescribeVpcs",
+                                    "events:*",
+                                    "iam:*",
+                                    "lambda:*",
+                                    "logs:*",
+                                    "s3:*",
+                                    "s3:DeleteBucket",
+                                    "sqs:*"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                },
+                                {
+                                  "Action": [
+                                    "s3:GetBucket*",
+                                    "s3:GetObject*",
+                                    "s3:List*"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "lvsmarineserverdevcodepipelineArtifactsBucketC2B6D973",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "lvsmarineserverdevcodepipelineArtifactsBucketC2B6D973",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "kms:Decrypt",
+                                    "kms:DescribeKey",
+                                    "kms:Encrypt",
+                                    "kms:GenerateDataKey*",
+                                    "kms:ReEncrypt*"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::GetAtt": [
+                                      "lvsmarineserverdevcodepipelineArtifactsBucketEncryptionKeyFDA8F363",
+                                      "Arn"
+                                    ]
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "lvsmarineserverdevcodebuildprojectRoleDefaultPolicy637E3757",
+                            "roles": [
+                              {
+                                "Ref": "lvsmarineserverdevcodebuildprojectRole29BEF774"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.59.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.59.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.59.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-codebuild-project/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::CodeBuild::Project",
+                  "aws:cdk:cloudformation:props": {
+                    "artifacts": {
+                      "type": "CODEPIPELINE"
+                    },
+                    "environment": {
+                      "type": "LINUX_CONTAINER",
+                      "image": "aws/codebuild/standard:5.0",
+                      "imagePullCredentialsType": "CODEBUILD",
+                      "privilegedMode": true,
+                      "computeType": "BUILD_GENERAL1_SMALL"
+                    },
+                    "serviceRole": {
+                      "Fn::GetAtt": [
+                        "lvsmarineserverdevcodebuildprojectRole29BEF774",
+                        "Arn"
+                      ]
+                    },
+                    "source": {
+                      "type": "CODEPIPELINE",
+                      "buildSpec": "buildspec.dev.yml"
+                    },
+                    "cache": {
+                      "type": "NO_CACHE"
+                    },
+                    "encryptionKey": {
+                      "Fn::GetAtt": [
+                        "lvsmarineserverdevcodepipelineArtifactsBucketEncryptionKeyFDA8F363",
+                        "Arn"
+                      ]
+                    },
+                    "name": "lvs-marine-server-dev-codebuild-project"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_codebuild.CfnProject",
+                  "version": "2.59.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_codebuild.PipelineProject",
+              "version": "2.59.0"
+            }
+          },
+          "lvs-marine-server-dev-sns-topic": {
+            "id": "lvs-marine-server-dev-sns-topic",
+            "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-sns-topic",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-sns-topic/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::SNS::Topic",
+                  "aws:cdk:cloudformation:props": {
+                    "displayName": "lvs-marine-server-dev-sns-topic",
+                    "topicName": "lvs-marine-server-dev-sns-topic"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_sns.CfnTopic",
+                  "version": "2.59.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_sns.Topic",
+              "version": "2.59.0"
+            }
+          },
+          "lvs-marine-server-dev-sns-subscription": {
+            "id": "lvs-marine-server-dev-sns-subscription",
+            "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-sns-subscription",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "lvs-marine-server-dev-codepipeline-stack/lvs-marine-server-dev-sns-subscription/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::SNS::Subscription",
+                  "aws:cdk:cloudformation:props": {
+                    "protocol": "email",
+                    "topicArn": {
+                      "Ref": "lvsmarineserverdevsnstopic60FE55E9"
+                    },
+                    "endpoint": "clyde.mendonca@tataaig.com"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_sns.CfnSubscription",
+                  "version": "2.59.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_sns.Subscription",
+              "version": "2.59.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "lvs-marine-server-dev-codepipeline-stack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "lvs-marine-server-dev-codepipeline-stack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.59.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.1.246"
+            }
+          },
+          "BootstrapVersion": {
+            "id": "BootstrapVersion",
+            "path": "lvs-marine-server-dev-codepipeline-stack/BootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnParameter",
+              "version": "2.59.0"
+            }
+          },
+          "CheckBootstrapVersion": {
+            "id": "CheckBootstrapVersion",
+            "path": "lvs-marine-server-dev-codepipeline-stack/CheckBootstrapVersion",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnRule",
+              "version": "2.59.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.59.0"
+        }
+      },
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.1.246"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.59.0"
+    }
+  }
+}

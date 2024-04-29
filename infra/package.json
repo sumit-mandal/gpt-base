@@ -1,0 +1,20 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "This is a blank project for CDK development with Python.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cdk:deploy-dev": "cp .env.dev .env && cdk bootstrap --profile=gen-ai-uat --force && cdk deploy --profile=gen-ai-uat --force",
+    "cdk:deploy-uat": "cp .env.uat .env && cdk bootstrap --force && cdk deploy --force --profile=gen-ai-uat",
+    "cdk:deploy-release": "cp .env.release .env && cdk bootstrap --profile=uat --force && cdk deploy --profile=uat --force"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-cdk": "^2.59.0"
+  }
+}
