@@ -1,5 +1,6 @@
 import requests
 import json
+import requests
 
 def api_calling_signzy(cin):
     
@@ -33,7 +34,13 @@ def api_calling_cii():
 
     return cii_response.text
 
+def insta_combo():
+  
+  url = "https://instafinancials.com/api/InstaCombo/v1/json/OrderID/1324658/DownloadReport"
+  request_headers = { "user-key": "imNivkDuIOU0wb+pekiMFh+c6fJyhJ4MFADeNwBL8mFTJ9lgCqH15g==" }
+  response = requests.get(url, headers = request_headers)
 
+  return response.json()
 
     
 

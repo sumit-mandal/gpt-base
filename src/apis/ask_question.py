@@ -12,7 +12,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.document_loaders import PyPDFLoader
 from utils.langchain_string_loader import get_text_chunks_langchain
-from utils.helper_api import api_calling_signzy,api_calling_instafinancials,api_calling_cii
+from utils.helper_api import api_calling_signzy,api_calling_instafinancials,api_calling_cii,insta_combo
 
 from langchain.chat_models import ChatOpenAI
 from langchain.vectorstores import FAISS
@@ -30,7 +30,7 @@ runtime = boto3.client("sagemaker-runtime", verify=False)
 ns_parent_retriever_api = Namespace('ask_question_to_parent',description="api for asking question to parent retriever")
 
 import os
-os.environ['OPENAI_API_KEY'] = "sk-proj-W2TxDZ9dYXoN19qeDmkkT3BlbkFJtE7hTpaA8AXIhDwb6C9H"
+os.environ['OPENAI_API_KEY'] = "sk-proj-BT0qheLtrDz2piObHzxUT3BlbkFJIQ9GPHOswBmYNYWXkB6Z"
 
         
 
@@ -59,6 +59,8 @@ class Parent_Retv(Resource):
             text = api_calling_instafinancials()
         elif data_source == "cii":
             text = api_calling_cii()
+        elif data_source == "instaCombo":
+            text = insta_combo()
  
 
         documents = get_text_chunks_langchain(str(text))
