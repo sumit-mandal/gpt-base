@@ -18,7 +18,9 @@ from langchain.chat_models import ChatOpenAI
 from langchain.vectorstores import FAISS
 from langchain import PromptTemplate
 from langchain.chains.question_answering import load_qa_chain
+from dotenv import load_dotenv
 
+load_dotenv()
 
 
 ns_ask_question_api = Namespace('ask_question', description="api for asking question ")
@@ -30,7 +32,8 @@ runtime = boto3.client("sagemaker-runtime", verify=False)
 ns_parent_retriever_api = Namespace('ask_question_to_parent',description="api for asking question to parent retriever")
 
 import os
-os.environ['OPENAI_API_KEY'] = "sk-proj-BT0qheLtrDz2piObHzxUT3BlbkFJIQ9GPHOswBmYNYWXkB6Z"
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
 
         
 
