@@ -42,6 +42,19 @@ def insta_combo():
 
   return response.json()
 
+def json_data_source():
+
+    # Path to your JSON file
+    file_path = "new_cii_data.json"
+    
+    with open(file_path, 'r') as f:
+      
+      json_data = f.read()
+    json_string = json.dumps(json_data) 
+
+    
+    return json_string
+    
     
 
     

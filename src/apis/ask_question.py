@@ -12,7 +12,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.document_loaders import PyPDFLoader
 from utils.langchain_string_loader import get_text_chunks_langchain
-from utils.helper_api import api_calling_signzy,api_calling_instafinancials,api_calling_cii,insta_combo
+from utils.helper_api import api_calling_signzy,api_calling_instafinancials,api_calling_cii,insta_combo,json_data_source
 
 from langchain.chat_models import ChatOpenAI
 from langchain.vectorstores import FAISS
@@ -64,6 +64,8 @@ class Parent_Retv(Resource):
             text = api_calling_cii()
         elif data_source == "instaCombo":
             text = insta_combo()
+        elif data_source == "jsonData":
+            text = json_data_source()
  
 
         documents = get_text_chunks_langchain(str(text))
