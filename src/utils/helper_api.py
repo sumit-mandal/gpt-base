@@ -32,7 +32,7 @@ def api_calling_cii():
     cii_response = requests.request("GET", url)
 
 
-    return cii_response.text
+    return cii_response.json()
 
 def insta_combo():
   
@@ -53,7 +53,7 @@ def json_data_source():
     json_string = json.dumps(json_data) 
 
     
-    return json_string
+    return str(json_string)
     
     
 

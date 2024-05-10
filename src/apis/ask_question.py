@@ -35,7 +35,9 @@ import os
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
 
-        
+
+
+
 
 
 @ns_parent_retriever_api.route('/', methods=['POST'])
@@ -51,7 +53,7 @@ class Parent_Retv(Resource):
         question = request.form.get("question")
         cin = request.form.get("cin")
         
-        llm = ChatOpenAI(model_name='gpt-4')
+        llm = ChatOpenAI(temperature=0,model_name='gpt-4') 
         
        
         data_source = request.form.get("data_source")
@@ -66,6 +68,8 @@ class Parent_Retv(Resource):
             text = insta_combo()
         elif data_source == "jsonData":
             text = json_data_source()
+
+        # text = "Hello"
  
 
         documents = get_text_chunks_langchain(str(text))
@@ -84,26 +88,6 @@ class Parent_Retv(Resource):
 
         embeddings = OpenAIEmbeddings()
         
-        
-
-
-        # if data_source == "cii":
-        #     vector_db=FAISS.from_documents(texts, embedding=embeddings
-        #                            )
-        #     vector_db.save_local("faiss_index")
-
-        #     new_db = FAISS.load_local("faiss_index", embeddings,allow_dangerous_deserialization=True)
-        #     # docsearch = FAISS.from_documents(texts, embeddings).save_local("gpt_store","merged_all_books_a")
-            
-        #     # docsearch = FAISS.load_local(folder_path = "gpt_store",embeddings = embeddings, index_name = 'merged_all_books_a',allow_dangerous_deserialization=True)
-        #     # docsearch = FAISS.load_local("merged_all_books", embeddings,allow_dangerous_deserialization=True)
-
-        #     print("**************",new_db)
-
-        #     return new_db
-        # else :
-        #     docsearch = FAISS.from_documents(texts, embeddings)
-            
 
         
         docsearch = FAISS.from_documents(texts, embeddings)
@@ -111,19 +95,19 @@ class Parent_Retv(Resource):
         docs = docsearch.similarity_search(query=question, k=10)
 
 
-        prompt_template = """Based on the information given, answer the question asked from the context that a 5-year-old can understand. If the answer isn't in the context, try to use your own knowledge and give crisp answers.
-                ###
-                context: {context}
-                ###
-                Question: {question}
-
-                Answer:""".strip()
+        prompt_template = """If the context is not relevant,
+        please answer the question by using your own knowledge about the topic.
+        
+        {context}
+        
+        Question: {question}
+        """
         
         
 
         PROMPT = PromptTemplate(template=prompt_template, input_variables=["context", "question"])
         llm.model_kwargs = {
-                "temperature": 0.9,
+                "temperature": 0.01,
         }
         chain = load_qa_chain(llm=llm, prompt=PROMPT)
 
@@ -132,3 +116,4 @@ class Parent_Retv(Resource):
         ]
 
         return result
+        
