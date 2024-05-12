@@ -94,9 +94,18 @@ class Parent_Retv(Resource):
         
         docs = docsearch.similarity_search(query=question, k=10)
 
+        
 
-        prompt_template = """If the context is not relevant,
-        please answer the question by using your own knowledge about the topic.
+        # prompt_template = """If the context is not relevant,
+        # please answer the question by using your own knowledge about the topic.
+        
+        # {context}
+        
+        # Question: {question}
+        # """
+
+        prompt_template = """If the context is not relevant, Answer "don't know" don't try to make answers on your own
+        
         
         {context}
         
@@ -107,7 +116,7 @@ class Parent_Retv(Resource):
 
         PROMPT = PromptTemplate(template=prompt_template, input_variables=["context", "question"])
         llm.model_kwargs = {
-                "temperature": 0.01,
+                "temperature": 0.00001,
         }
         chain = load_qa_chain(llm=llm, prompt=PROMPT)
 
@@ -115,5 +124,14 @@ class Parent_Retv(Resource):
             "output_text"
         ]
 
-        return result
+        if """don't know""" in result:
+            template = "you are an intelligent bot who has all the information about indian organisations, Take Question: {question} from users and answer the questions asked"
+
+            prompt = PromptTemplate.from_template(template)
+
+            llm_chain = prompt|llm
+
+            result = llm_chain.invoke("List me top manufacturing companies in south india")
+
+        return {"result":str(result)}
         
