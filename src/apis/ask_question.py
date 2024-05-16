@@ -1,6 +1,6 @@
 from flask import request, session
 from flask_restx import Namespace, Resource
-import boto3
+import boto3,json
 
 from boto3 import Session
 from config.config import S3_EMBEDDINGS_PATH,EMBEDDINGS_ENDPOINT,S3_BUCKET_NAME,SAGEMAKER_ENDPOINT
@@ -132,6 +132,15 @@ class Parent_Retv(Resource):
             llm_chain = prompt|llm
 
             result = llm_chain.invoke(question)
+
+            # Parse the JSON string
+            data = json.loads(str(result))
+
+            # Remove the 'response_metadata' key from the dictionary
+            if 'response_metadata' in data:
+                del data['response_metadata']
+
+            result = json.dumps(data)
 
         return {"result":str(result)}
         
