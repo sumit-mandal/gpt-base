@@ -131,7 +131,7 @@ class Parent_Retv(Resource):
 
             llm_chain = prompt|llm
 
-            result = llm_chain.invoke("List me top manufacturing companies in south india")
+            result = llm_chain.invoke(question)
 
         return {"result":str(result)}
         
