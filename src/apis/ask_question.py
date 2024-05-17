@@ -53,7 +53,7 @@ class Parent_Retv(Resource):
         question = request.form.get("question")
         cin = request.form.get("cin")
         
-        llm = ChatOpenAI(temperature=0,model_name='gpt-4') 
+        llm = ChatOpenAI(temperature=0,model_name='gpt-4o') 
         
        
         data_source = request.form.get("data_source")
@@ -69,7 +69,7 @@ class Parent_Retv(Resource):
         elif data_source == "jsonData":
             text = json_data_source()
 
-        # text = "Hello"
+        text = "Hello Sharvil patel is CEO of zydus"
  
 
         documents = get_text_chunks_langchain(str(text))
@@ -91,6 +91,7 @@ class Parent_Retv(Resource):
 
         
         docsearch = FAISS.from_documents(texts, embeddings)
+        
         
         docs = docsearch.similarity_search(query=question, k=10)
 
@@ -116,7 +117,7 @@ class Parent_Retv(Resource):
 
         PROMPT = PromptTemplate(template=prompt_template, input_variables=["context", "question"])
         llm.model_kwargs = {
-                "temperature": 0.00001,
+                "temperature": 0.5,
         }
         chain = load_qa_chain(llm=llm, prompt=PROMPT)
 
@@ -124,23 +125,40 @@ class Parent_Retv(Resource):
             "output_text"
         ]
 
-        if """don't know""" in result:
-            template = "you are an intelligent bot who has all the information about indian organisations, Take Question: {question} from users and answer the questions asked"
+
+        
+        
+        print("tupe of result",type(result))
+        if not """don't know""" in result.lower():
+            result = result
+            print("Old result",result)
+
+        else:
+            llm_self = ChatOpenAI(temperature=0,model_name='gpt-4o') 
+            llm_self.model_kwargs = {
+                "temperature": 0.5,
+            }
+            template = """you are an intelligent bot who has all the information about indian organisations, 
+            answer the {question} asked"""
 
             prompt = PromptTemplate.from_template(template)
 
-            llm_chain = prompt|llm
+            llm_chain = prompt|llm_self
 
             result = llm_chain.invoke(question)
+            
+            print("new result",(result))
+            result = str(result)
+            # Find the index of response_metadata
+            index = result.find("response_metadata")
 
-            # Parse the JSON string
-            data = json.loads(str(result))
+            # Extract the substring up to response_metadata
+            result = result[:index]
+            # result_old = result.content.split('" response_metadata=')[0].strip()
+            # return result
+            
+        
+        
 
-            # Remove the 'response_metadata' key from the dictionary
-            if 'response_metadata' in data:
-                del data['response_metadata']
-
-            result = json.dumps(data)
-
-        return {"result":str(result)}
+        return {"result":result}
         
