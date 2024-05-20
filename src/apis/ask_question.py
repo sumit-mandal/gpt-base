@@ -69,7 +69,7 @@ class Parent_Retv(Resource):
         elif data_source == "jsonData":
             text = json_data_source()
 
-        text = "Hello Sharvil patel is CEO of zydus"
+        # text = "Hello Sharvil patel is CEO of zydus"
  
 
         documents = get_text_chunks_langchain(str(text))
@@ -87,78 +87,81 @@ class Parent_Retv(Resource):
         print("Sm_llm_embeddings",OpenAIEmbeddings)
 
         embeddings = OpenAIEmbeddings()
+
+        docsearch = FAISS.from_documents(texts, embeddings).save_local("faiss_store","merged_all_books_b")
         
 
+        return "success"
         
-        docsearch = FAISS.from_documents(texts, embeddings)
+        # docsearch = FAISS.from_documents(texts, embeddings)
         
         
-        docs = docsearch.similarity_search(query=question, k=10)
+        # docs = docsearch.similarity_search(query=question, k=10)
 
         
 
-        # prompt_template = """If the context is not relevant,
-        # please answer the question by using your own knowledge about the topic.
+        # # prompt_template = """If the context is not relevant,
+        # # please answer the question by using your own knowledge about the topic.
+        
+        # # {context}
+        
+        # # Question: {question}
+        # # """
+
+        # prompt_template = """If the context is not relevant, Answer "don't know" don't try to make answers on your own
+        
         
         # {context}
         
         # Question: {question}
         # """
-
-        prompt_template = """If the context is not relevant, Answer "don't know" don't try to make answers on your own
-        
-        
-        {context}
-        
-        Question: {question}
-        """
         
         
 
-        PROMPT = PromptTemplate(template=prompt_template, input_variables=["context", "question"])
-        llm.model_kwargs = {
-                "temperature": 0.5,
-        }
-        chain = load_qa_chain(llm=llm, prompt=PROMPT)
+        # PROMPT = PromptTemplate(template=prompt_template, input_variables=["context", "question"])
+        # llm.model_kwargs = {
+        #         "temperature": 0.5,
+        # }
+        # chain = load_qa_chain(llm=llm, prompt=PROMPT)
 
-        result = chain({"input_documents": docs, "question": question}, return_only_outputs=False)[
-            "output_text"
-        ]
+        # result = chain({"input_documents": docs, "question": question}, return_only_outputs=False)[
+        #     "output_text"
+        # ]
 
 
         
         
-        print("tupe of result",type(result))
-        if not """don't know""" in result.lower():
-            result = result
-            print("Old result",result)
+        # print("tupe of result",type(result))
+        # if not """don't know""" in result.lower():
+        #     result = result
+        #     print("Old result",result)
 
-        else:
-            llm_self = ChatOpenAI(temperature=0,model_name='gpt-4o') 
-            llm_self.model_kwargs = {
-                "temperature": 0.5,
-            }
-            template = """you are an intelligent bot who has all the information about indian organisations, 
-            answer the {question} asked"""
+        # else:
+        #     llm_self = ChatOpenAI(temperature=0,model_name='gpt-4o') 
+        #     llm_self.model_kwargs = {
+        #         "temperature": 0.5,
+        #     }
+        #     template = """you are an intelligent bot who has all the information about indian organisations, 
+        #     answer the {question} asked"""
 
-            prompt = PromptTemplate.from_template(template)
+        #     prompt = PromptTemplate.from_template(template)
 
-            llm_chain = prompt|llm_self
+        #     llm_chain = prompt|llm_self
 
-            result = llm_chain.invoke(question)
+        #     result = llm_chain.invoke(question)
             
-            print("new result",(result))
-            result = str(result)
-            # Find the index of response_metadata
-            index = result.find("response_metadata")
+        #     print("new result",(result))
+        #     result = str(result)
+        #     # Find the index of response_metadata
+        #     index = result.find("response_metadata")
 
-            # Extract the substring up to response_metadata
-            result = result[:index]
-            # result_old = result.content.split('" response_metadata=')[0].strip()
-            # return result
+        #     # Extract the substring up to response_metadata
+        #     result = result[:index]
+        #     # result_old = result.content.split('" response_metadata=')[0].strip()
+        #     # return result
             
         
         
 
-        return {"result":result}
+        # return {"result":result}
         
