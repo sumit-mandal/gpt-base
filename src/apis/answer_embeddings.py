@@ -46,11 +46,15 @@ class AnswerBot(Resource):
 
         docs = docsearch.similarity_search(query=str(question), k=10)
 
-        print("################## question",question)
+        print("################## question",question,docs)
 
-        prompt_template = """Based on the {context} given, answer the {question}. If the answer isn't in the context, respond with 'don't know'
+        prompt_template = """Based on the information given, answer the question asked from the context. You need to answer the question properly. 
+        However if context seems inappropriate you can reply don't know, only reply don't know when you don't find answer.
         
-        
+        ###
+        context: {context}
+        ###
+        Question: {question}
 
         Answer:""".strip()
         
@@ -75,7 +79,7 @@ class AnswerBot(Resource):
         print("tupe of result",type(result))
         if not """don't know""" in result.lower():
             result = result
-            print("Old result",result)
+            # print("Old result",result)
 
         else:
             llm_self = ChatOpenAI(temperature=0,model_name='gpt-4o') 
