@@ -93,7 +93,9 @@ class AnswerBot(Resource):
 
             llm_chain = prompt|llm_self
 
-            result = llm_chain.invoke(question)
+            variables = {"question": question}
+
+            result = llm_chain.invoke(variables)
             
             print("new result",(result))
             result = str(result)
@@ -102,6 +104,8 @@ class AnswerBot(Resource):
 
             # Extract the substring up to response_metadata
             result = result[:index]
+
+            result = result[len("content='"):-1]
             # result_old = result.content.split('" response_metadata=')[0].strip()
             # return result
             
